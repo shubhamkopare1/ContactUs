@@ -12,7 +12,6 @@ const createContact = async (req, res) => {
       topic,
       message,
     });
-
     await contact.save();
     await sendConfirmationEmail(email, name)
     res.status(201).json({ message: 'Contact message saved successfully', contact });
