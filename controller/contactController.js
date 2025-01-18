@@ -5,6 +5,14 @@ const createContact = async (req, res) => {
   try {
     const { name, email, phone, topic, message } = req.body;
 
+    const existingContact = await Contact.findOne({ email });
+    if (existingContact) {
+      return res.status(400).json({
+        error: "You have already submitted a contact form.",
+        details: `The email ${email} has already been used.`,
+      });
+    }
+
     const contact = new Contact({
       name,
       email,
